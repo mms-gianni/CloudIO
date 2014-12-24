@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, getopt, Cloudio, re, os, pickle, help
+import sys, getopt, Cloudio, re, os, pickle
 
 
 def main(argv):

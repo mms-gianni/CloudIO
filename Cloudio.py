@@ -1,6 +1,6 @@
 from Client import CloudStackClient
 
-import sys, getopt, re, os, pickle, help
+import sys, getopt, re, os, pickle
 class Cloudio(CloudStackClient):
 
   colors = {
