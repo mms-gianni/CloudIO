@@ -1,3 +1,5 @@
+# Genereated and manually fixed 
+# Gerator : https://github.com/demarey/cloudstack-client-generator
 from BaseClient import BaseCloudStackClient
 
 

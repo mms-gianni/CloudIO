@@ -1,3 +1,5 @@
+# Genereated and manually fixed 
+# Gerator : https://github.com/demarey/cloudstack-client-generator
 import hmac, hashlib
 import base64
 import os, sys
@@ -43,7 +45,7 @@ class BaseCloudStackClient:
             )
             
             query += '&signature=' + urllib.quote_plus(digest)
-        print "Request:", self.url+'?'+query
+        #print "Request:", self.url+'?'+query
         try:
             response = urllib2.urlopen(self.url+'?'+query).read()
             mydict = json.loads(response)
