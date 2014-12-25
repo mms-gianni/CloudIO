@@ -49,7 +49,7 @@ class Cloudio(CloudStackClient):
     if os.path.isfile(path+'/project.pickle'):
       self.project_arr = pickle.load(open(path+'/project.pickle', 'rb'))
     else:
-      res = client.listProjects()
+      res = self.listProjects()
       for item in res['listprojectsresponse']['project']:
         self.project_arr[item['name']] = item['id'] 
 
