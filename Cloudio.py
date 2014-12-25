@@ -29,13 +29,13 @@ class Cloudio(CloudStackClient):
     else:
        if not os.path.exists(path):
           os.makedirs(path)
-       q = colors['Question']+"Api URL : "+colors['Reset']
+       q = self.colors['Question']+"Api URL : "+self.colors['Reset']
        config_arr['apiUrl'] = raw_input(q)
 
-       q = colors['Question']+"Api Key : "+colors['Reset']
+       q = self.colors['Question']+"Api Key : "+self.colors['Reset']
        config_arr['apiKey'] = raw_input(q)
 
-       q = colors['Question']+"Secret Key : "+colors['Reset']
+       q = self.colors['Question']+"Secret Key : "+self.colors['Reset']
        config_arr['secretKey'] = raw_input(q)
        pickle.dump(config_arr, open(path+'/config.pickle', 'wb'))
 
