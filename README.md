@@ -23,35 +23,35 @@ $ /usr/local/bin/cloudiosays -c listprojects
 ```
 ### list diskofferings
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listdiskofferings
 ```
 ### list Volumes
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listvolumes
 ```
 ### list Isos
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listisos -p [YOURPROJECT]
 ```
 ### list virtual machines
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT]
 ```
 ### Stop virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listvms -p [YOURPROJECT] -v [VMNAME]
 ```
 ### Start virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c start-vm -p [YOURPROJECT] -v [VMNAME]
 ```
 ### Create a new virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT] -v [VMNAME without the number] 
 ```
 ### Destroy a virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT] -v [VMNAME]
 ```
 
 ## TODO
