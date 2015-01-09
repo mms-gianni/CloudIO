@@ -7,6 +7,7 @@ Tested with Python 2.7.3
 ## Installation 
 ```sh
 $ curl https://raw.githubusercontent.com/mms-gianni/CloudIO/master/bin/cloudiosays > /usr/local/bin/cloudiosays
+$ chmod +x /usr/local/bin/cloudiosays
 ```
 Yep ... thats it. 
 
