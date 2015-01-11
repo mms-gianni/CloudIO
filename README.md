@@ -11,10 +11,9 @@ $ chmod +x /usr/local/bin/cloudiosays
 ```
 Yep ... thats it. 
 
-On your first call you will be asked for your API RUL and credentials. 
-I recommend to run following command first:
+On your first call you will be asked for your API URL and credentials. 
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects
+$ /usr/local/bin/cloudiosays
 ```
 
 ## Usage 
@@ -56,7 +55,7 @@ $ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT] -v [VMNAME]
 ```
 
 ## TODO
- - hmmm 
+ - Progress bar
 
 ## License
 GNU GENERAL PUBLIC LICENSE V3
