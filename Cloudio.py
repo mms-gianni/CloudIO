@@ -1,6 +1,6 @@
 from Client import CloudStackClient
 
-import sys, getopt, re, os, pickle
+import sys, getopt, re, os, pickle, time
 class Cloudio(CloudStackClient):
 
   colors = {
@@ -11,6 +11,7 @@ class Cloudio(CloudStackClient):
     'Starting':   '\033[m\033[0;34m',
     'Destroyed':  '\033[m\033[0;35m',
     'Error':      '\033[m\033[0;35m',
+    'OK':         '\033[m\033[0;32m',
     'Title':      '\033[m\033[1;30m\033[38;5;255m',
     'Question':   '\033[m\033[1;30m\033[38;5;226m',
     'Reset':      '\033[0m',
@@ -84,6 +85,20 @@ class Cloudio(CloudStackClient):
 
 
     """
+
+  def obsessJob(self, jobID):
+    status = "NotDone"
+
+    while status != "Done":
+      res = self.queryAsyncJobResult(jobID)
+      if res['queryasyncjobresultresponse']['jobstatus'] == 0:
+        time.sleep( 3 )
+        sys.stdout.write('#')
+        sys.stdout.flush()
+      else:
+        print self.colors['OK']+" [Done]"+self.colors['Reset']
+        status = "Done"
+
   def setProjectID(self, projectname):
     self.projectid = self.project_arr[projectname]
   def getPrjectIds(self):
@@ -149,14 +164,17 @@ class Cloudio(CloudStackClient):
   def destroyVM(self, vmname, expunge):
     vm = self.getVMListByHame()
     res = self.destroyVirtualMachine(vm[vmname]['id'], expunge)
+    return job['stopvirtualmachineresponse']['jobid']
 
   def startVM(self, vmname):
     vm = self.getVMListByHame()
-    res = self.startVirtualMachine(vm[vmname]['id'])
+    job = self.startVirtualMachine(vm[vmname]['id'])
+    return job['startvirtualmachineresponse']['jobid']
 
   def stopVM(self, vmname):
     vm = self.getVMListByHame()
-    res = self.stopVirtualMachine(vm[vmname]['id'])
+    job = self.stopVirtualMachine(vm[vmname]['id'])
+    return job['stopvirtualmachineresponse']['jobid']
 
   def getVMListByHame(self):
     res = self.listVirtualMachines(

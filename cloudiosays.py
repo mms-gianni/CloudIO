@@ -7,14 +7,14 @@ def main(argv):
    vmname = None
    project = None
    command = None
-
+   obsess = False
+   jobid = "None"
 
    client = Cloudio.Cloudio()
    project_arr = client.getPrjectIds()
 
-
    try:
-      opts, args = getopt.getopt(argv,"hp:c:v:",["project=","command=", "vm=", "help"])
+      opts, args = getopt.getopt(argv,"hop:c:v:",["project=","command=", "vm=", "help", "obsess"])
    except getopt.GetoptError:
       print 'test.py -p <project> -c <command>'
       sys.exit(2)
@@ -29,6 +29,8 @@ def main(argv):
          command = arg
       elif opt in ("-v", "--vm"):
          vmname = arg
+      elif opt in ("-o", "--obsess"):
+         obsess = True
 
    if command == 'listisos':
       client.getIsos(project_arr[project])
@@ -36,12 +38,12 @@ def main(argv):
       client.printVirtualMachines()
    elif command == 'stopvm':
       if isinstance(vmname, str) & isinstance(project, str):
-         client.stopVM(vmname)
+         jobid = client.stopVM(vmname)
       else:
          print "Error: vmname and project must be provided"
    elif command == 'startvm':
       if isinstance(vmname, str) & isinstance(project, str):
-         client.startVM(vmname)
+         jobid = client.startVM(vmname)
       else:
          print "Error: vmname and project must be provided"
    elif command == 'createvm':
@@ -64,7 +66,9 @@ def main(argv):
    elif command == 'listvolumes':
       client.printVolumes()
 
-      
+   if obsess and jobid != "None":
+      print "Running: ",
+      client.obsessJob(jobid)
 
 
 if __name__ == "__main__":
