@@ -163,8 +163,8 @@ class Cloudio(CloudStackClient):
 
   def destroyVM(self, vmname, expunge):
     vm = self.getVMListByHame()
-    res = self.destroyVirtualMachine(vm[vmname]['id'], expunge)
-    return job['stopvirtualmachineresponse']['jobid']
+    job = self.destroyVirtualMachine(vm[vmname]['id'], expunge)
+    return job['destroyvirtualmachineresponse']['jobid']
 
   def startVM(self, vmname):
     vm = self.getVMListByHame()
@@ -261,43 +261,45 @@ class Cloudio(CloudStackClient):
 
     q = self.colors['Question']+"Do you agree with these parameters ?"+self.colors['Reset']
     create = raw_input("%s [y/N] " % q) == 'y'
+ 
     if create:
       print "creating "+vmname
   
-    res = self.deployVirtualMachine(
-      serviceofferingid, #serviceOfferingId, 
-      iso[0]['id'], #templateId, 
-      zoneid, #zoneId, 
-      "", #account = "", 
-      "", #affinityGroupIds = "", 
-      "", #affinityGroupNames = "", 
-      "", #customId = "", 
-      "", #deploymentPlanner = "", 
-      "", #details = "", 
-      volumelist[templatevm]['serviceofferingid'], #diskOfferingId = "", 
-      "", #displayName = "", 
-      "", #displayVm = "", 
-      "", #domainId = "", 
-      "", #group = "", 
-      "", #hostId = "", 
-      "vmware", #hypervisor = "", 
-      "", #ip6Address = "", 
-      "", #ipAddress = "", 
-      "", #ipToNetWorkList = "", 
-      "", #keyboard = "", 
-      "", #keyPair = "", 
-      vmname, #name = "", 
-      nicids, #networkIds = "", 
-      self.projectid, #projectId = "", 
-      "", #rootDiskSize = "", 
-      "", #securityGroupIds = "", 
-      "", #securityGroupNames = "", 
-      disksize, #size = "", 
-      "", #startVm = "", 
-      "", #userData = ""
-    )
+      job = self.deployVirtualMachine(
+        serviceofferingid, #serviceOfferingId, 
+        iso[0]['id'], #templateId, 
+        zoneid, #zoneId, 
+        "", #account = "", 
+        "", #affinityGroupIds = "", 
+        "", #affinityGroupNames = "", 
+        "", #customId = "", 
+        "", #deploymentPlanner = "", 
+        "", #details = "", 
+        volumelist[templatevm]['serviceofferingid'], #diskOfferingId = "", 
+        "", #displayName = "", 
+        "", #displayVm = "", 
+        "", #domainId = "", 
+        "", #group = "", 
+        "", #hostId = "", 
+        "vmware", #hypervisor = "", 
+        "", #ip6Address = "", 
+        "", #ipAddress = "", 
+        "", #ipToNetWorkList = "", 
+        "", #keyboard = "", 
+        "", #keyPair = "", 
+        vmname, #name = "", 
+        nicids, #networkIds = "", 
+        self.projectid, #projectId = "", 
+        "", #rootDiskSize = "", 
+        "", #securityGroupIds = "", 
+        "", #securityGroupNames = "", 
+        disksize, #size = "", 
+        "", #startVm = "", 
+        "", #userData = ""
+      )
+      return job['deployvirtualmachineresponse']['jobid']
 
-    print res
+    return "None"
 
 
   def getIsos(self, zoneid=""):

@@ -48,7 +48,7 @@ def main(argv):
          print "Error: vmname and project must be provided"
    elif command == 'createvm':
       if isinstance(vmname, str) & isinstance(project, str):
-         client.createVM(vmname)
+         jobid = client.createVM(vmname)
       else:
          print "Error: vmname and project must be provided"
    elif command == 'destroyvm':
@@ -56,7 +56,7 @@ def main(argv):
          msg = "Expunge vm "+vmname+" ?"
          expunge = raw_input("%s (y/N) " % msg).lower() == 'y'
          expunge = str(expunge).lower()
-         client.destroyVM(vmname, expunge)
+         jobid = client.destroyVM(vmname, expunge)
       else:
          print "Error: vmname and project must be provided"
    elif command == 'listprojects':
