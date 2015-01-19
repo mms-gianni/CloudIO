@@ -5,6 +5,7 @@ class Cloudio(CloudStackClient):
 
   colors = {
     'Running':    '\033[m\033[0;32m', 
+    'Migrating':  '\033[m\033[0;37m', 
     'Stopped':    '\033[m\033[0;31m', 
     'Stopping':   '\033[m\033[0;33m', 
     'Expunging':  '\033[m\033[0;36m', 
@@ -220,8 +221,13 @@ class Cloudio(CloudStackClient):
     volumesList = self.getVolumesByName()
     for vmname, item in vmlist.iteritems():
       vm = self.colors[item['state']]+item['displayname']+self.colors['Reset']
-      size = str(volumesList[vmname]['size']/1073741824)
-      print vm.ljust(30)+" \t"+item['serviceofferingname']+"\t"+size+" GB \t"+volumesList[vmname]['serviceofferingname']
+      if volumesList.has_key(vmname):
+        size = str(volumesList[vmname]['size']/1073741824)
+        serviceofferingname = volumesList[vmname]['serviceofferingname']
+      else:
+        size = "UNKNOWN"
+        serviceofferingname = "UNKOWN"
+      print vm.ljust(30)+" \t"+item['serviceofferingname']+"\t"+size+" GB \t"+serviceofferingname
 
 
 
