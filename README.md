@@ -8,7 +8,8 @@ Cloudstack 4.4
 
 ## Installation 
 ```sh
-$ python setup.py install
+$ sudo apt-get install python-setuptools
+$ sudo python setup.py install
 ```
 Yep ... thats it. 
 

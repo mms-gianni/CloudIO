@@ -3,7 +3,7 @@
 import sys, getopt, Cloudio, re, os, pickle
 
 
-def main(argv = sys.argv[:1]):
+def main(argv = sys.argv[1:]):
    vmname = None
    project = None
    command = None
