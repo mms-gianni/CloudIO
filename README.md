@@ -8,8 +8,7 @@ Cloudstack 4.4
 
 ## Installation 
 ```sh
-$ curl https://raw.githubusercontent.com/mms-gianni/CloudIO/master/bin/cloudiosays > /usr/local/bin/cloudiosays
-$ chmod +x /usr/local/bin/cloudiosays
+$ python setup.py install
 ```
 Yep ... thats it. 
 
