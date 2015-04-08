@@ -18,44 +18,64 @@ class Cloudio(CloudStackClient):
     'Reset':      '\033[0m',
   }
 
-  project_arr = {}
+  config = {}
+
+  projects = {}
 
   projectid = ""
 
   def __init__(self):
   
-    config_arr = {}
-    path = '/usr/local/share/cloudio'
-    if os.path.isfile(path+'/config.pickle'):
-       config_arr = pickle.load(open(path+'/config.pickle', 'rb'))
-    else:
-       if not os.path.exists(path):
-          os.makedirs(path)
-       q = self.colors['Question']+"Api URL : "+self.colors['Reset']
-       config_arr['apiUrl'] = raw_input(q)
+    self.config = self.read_config()
 
-       q = self.colors['Question']+"Api Key : "+self.colors['Reset']
-       config_arr['apiKey'] = raw_input(q)
-
-       q = self.colors['Question']+"Secret Key : "+self.colors['Reset']
-       config_arr['secretKey'] = raw_input(q)
-       pickle.dump(config_arr, open(path+'/config.pickle', 'wb'))
-
-
-    self.apiKey     = config_arr['apiKey']
-    self.secretKey  = config_arr['secretKey']
+    self.apiKey     = self.config['apiKey']
+    self.secretKey  = self.config['secretKey']
     self.auth       = True
-    self.url        = config_arr['apiUrl']
+    self.url        = self.config['apiUrl']
 
+    self.projects = self.read_projects()
 
-    if os.path.isfile(path+'/project.pickle'):
-      self.project_arr = pickle.load(open(path+'/project.pickle', 'rb'))
+  def read_config(self):
+    os.environ.setdefault('CLOUDIO_HOME', '/usr/local/share/cloudio')
+    conf = {}
+    home = os.environ['CLOUDIO_HOME'].rstrip('/')
+    config_filename = home + '/config.pickle'
+
+    if os.path.isfile(config_filename):
+      conf = pickle.load(open(config_filename, 'rb'))
     else:
+      if not os.path.exists(home):
+        os.makedirs(home)
+      q = self.colors['Question']+"Api URL : "+self.colors['Reset']
+      conf['apiUrl'] = raw_input(q)
+
+      q = self.colors['Question']+"Api Key : "+self.colors['Reset']
+      conf['apiKey'] = raw_input(q)
+
+      q = self.colors['Question']+"Secret Key : "+self.colors['Reset']
+      conf['secretKey'] = raw_input(q)
+      pickle.dump(conf, open(config_filename, 'wb'))
+
+    # add configuration variables that don't need to be pickled
+    conf['home'] = home
+    conf['config_filename'] = config_filename
+    conf['project_filename'] = home + '/project.pickle'
+
+    return conf
+
+  def read_projects(self, config = None):
+    if config is None: config = self.config
+    project_filename = config['home'] + '/project.pickle'
+    if os.path.isfile(project_filename):
+      projects = pickle.load(open(project_filename, 'rb'))
+    else:
+      projects = {}
       res = self.listProjects()
       for item in res['listprojectsresponse']['project']:
-        self.project_arr[item['name']] = item['id'] 
+        projects[item['name']] = item['id']
 
-      pickle.dump(self.project_arr, open(path+'/project.pickle', 'wb'))
+    pickle.dump(projects, open(project_filename, 'wb'))
+    return projects
 
   def printHelp(self):
     print """
@@ -68,7 +88,7 @@ class Cloudio(CloudStackClient):
 
     Available Projects
     """
-    for projectname,projectid in self.project_arr.iteritems():
+    for projectname,projectid in self.projects.iteritems():
       print "   - "+projectname
 
     print """
@@ -101,9 +121,9 @@ class Cloudio(CloudStackClient):
         status = "Done"
 
   def setProjectID(self, projectname):
-    self.projectid = self.project_arr[projectname]
+    self.projectid = self.projects[projectname]
   def getPrjectIds(self):
-    return self.project_arr
+    return self.projects
 
   def printProjects(self):
     res = self.listProjects()

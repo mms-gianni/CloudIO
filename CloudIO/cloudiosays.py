@@ -16,7 +16,7 @@ def main(argv = sys.argv[1:]):
    try:
       opts, args = getopt.getopt(argv,"hop:c:v:",["project=","command=", "vm=", "help", "obsess"])
    except getopt.GetoptError:
-      print 'test.py -p <project> -c <command>'
+      print sys.argv[0] + ' -p <project> -c <command>'
       sys.exit(2)
    for opt, arg in opts:
       if opt in ("-h", "--help"):
