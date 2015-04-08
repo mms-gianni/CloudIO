@@ -122,7 +122,7 @@ class Cloudio(CloudStackClient):
 
   def setProjectID(self, projectname):
     self.projectid = self.projects[projectname]
-  def getPrjectIds(self):
+  def getProjectIds(self):
     return self.projects
 
   def printProjects(self):

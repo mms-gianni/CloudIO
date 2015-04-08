@@ -2,6 +2,12 @@
 
 import sys, getopt, Cloudio, re, os, pickle
 
+def inventory():
+   client = Cloudio.Cloudio()
+   projects = client.getProjectIds()
+   for i in projects:
+     client.setProjectID(i)
+     client.printVirtualMachines()
 
 def main(argv = sys.argv[1:]):
    vmname = None
@@ -11,7 +17,7 @@ def main(argv = sys.argv[1:]):
    jobid = "None"
 
    client = Cloudio.Cloudio()
-   project_arr = client.getPrjectIds()
+   project_arr = client.getProjectIds()
 
    try:
       opts, args = getopt.getopt(argv,"hop:c:v:",["project=","command=", "vm=", "help", "obsess"])

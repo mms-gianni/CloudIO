@@ -11,6 +11,7 @@ setup(name='CloudIO',
       entry_points='''
         [console_scripts]
         cloudiosays=CloudIO.cloudiosays:main
+        cloudiosays-inventory=CloudIO.cloudiosays:inventory
     ''',
       packages=['CloudIO'],
       )
