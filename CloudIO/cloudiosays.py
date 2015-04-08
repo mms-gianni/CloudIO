@@ -1,13 +1,21 @@
 #!/usr/bin/python
 
 import sys, getopt, Cloudio, re, os, pickle
+import json
 
 def inventory():
+   """entry point that converts the list of all VMS to an ansible inventory."""
+   data = {}
    client = Cloudio.Cloudio()
    projects = client.getProjectIds()
    for i in projects:
-     client.setProjectID(i)
-     client.printVirtualMachines()
+      client.setProjectID(i)
+      vmlist = client.getVMListByHame()
+      data[i] = []
+      for vmname, vmdata in vmlist.iteritems():
+         data[i].append(vmname)
+
+   print json.dumps(data)
 
 def main(argv = sys.argv[1:]):
    vmname = None
