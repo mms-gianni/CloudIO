@@ -15,10 +15,11 @@ Yep ... thats it.
 
 On your first call you will be asked for your API URL and credentials. 
 ```sh  
+$ export CLOUDIO_HOME=/usr/local/share/cloudio
 $ /usr/local/bin/cloudiosays
 ```
 The credentials are stored here : /usr/local/share/cloudio/ 
-To reentter them just remove the config.pickle 
+To reenter them just remove the config.pickle 
 
 ## Usage 
 ### list projects
@@ -43,19 +44,19 @@ $ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT]
 ```
 ### Stop virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listvms -p [YOURPROJECT] -v [VMNAME]
+$ /usr/local/bin/cloudiosays -c stopvm -p [YOURPROJECT] -v [VMNAME]
 ```
 ### Start virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c start-vm -p [YOURPROJECT] -v [VMNAME]
+$ /usr/local/bin/cloudiosays -c startvm -p [YOURPROJECT] -v [VMNAME]
 ```
 ### Create a new virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT] -v [VMNAME without the number] 
+$ /usr/local/bin/cloudiosays -c creatvm -p [YOURPROJECT] -v [VMNAME without the number] 
 ```
 ### Destroy a virtual machine
 ```sh  
-$ /usr/local/bin/cloudiosays -c listprojects -p [YOURPROJECT] -v [VMNAME]
+$ /usr/local/bin/cloudiosays -c destroyvm -p [YOURPROJECT] -v [VMNAME]
 ```
 
 ## TODO
