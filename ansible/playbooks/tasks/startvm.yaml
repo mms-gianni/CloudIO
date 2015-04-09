@@ -1,2 +1,2 @@
 - name: "Start this machine"
-  local_action: command cloudiosays -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
+  local_action: command cloudiosays --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
