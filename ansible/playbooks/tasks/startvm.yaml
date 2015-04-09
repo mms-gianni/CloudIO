@@ -1,0 +1,2 @@
+- name: "Start this machine"
+  local_action: command /usr/local/bin/cloudiosays -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"

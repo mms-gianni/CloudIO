@@ -14,4 +14,5 @@ setup(name='CloudIO',
         cloudiosays-inventory=CloudIO.cloudiosays:inventory
     ''',
       packages=['CloudIO'],
+      install_requires=['configparser'],
       )
