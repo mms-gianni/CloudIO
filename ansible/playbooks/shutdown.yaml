@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: "{{ project }}"
   connection: local
   serial: 1
   max_fail_percentage: 0
