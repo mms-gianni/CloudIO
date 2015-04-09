@@ -1,2 +1,2 @@
 - name: "Shutdown this machine"
-  local_action: command /usr/local/bin/cloudiosays -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
+  local_action: command cloudiosays -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
