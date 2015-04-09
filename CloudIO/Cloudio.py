@@ -184,16 +184,19 @@ class Cloudio(CloudStackClient):
 
   def destroyVM(self, vmname, expunge):
     vm = self.getVMListByHame()
+    if not vmname in vm: raise Exception("Unknown virtual machine " + vmname)
     job = self.destroyVirtualMachine(vm[vmname]['id'], expunge)
     return job['destroyvirtualmachineresponse']['jobid']
 
   def startVM(self, vmname):
     vm = self.getVMListByHame()
+    if not vmname in vm: raise Exception("Unknown virtual machine " + vmname)
     job = self.startVirtualMachine(vm[vmname]['id'])
     return job['startvirtualmachineresponse']['jobid']
 
   def stopVM(self, vmname):
     vm = self.getVMListByHame()
+    if not vmname in vm: raise Exception("Unknown virtual machine " + vmname)
     job = self.stopVirtualMachine(vm[vmname]['id'])
     return job['stopvirtualmachineresponse']['jobid']
 

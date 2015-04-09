@@ -25,10 +25,6 @@ def main(argv = sys.argv[1:]):
    project = None
    command = None
    obsess = False
-   jobid = "None"
-
-   client = Cloudio.Cloudio()
-   project_arr = client.getProjectIds()
 
    try:
       opts, args = getopt.getopt(argv,"hop:c:v:",["project=","command=", "vm=", "help", "obsess"])
@@ -37,21 +33,34 @@ def main(argv = sys.argv[1:]):
       sys.exit(2)
    for opt, arg in opts:
       if opt in ("-h", "--help"):
-         client.printHelp()
-         sys.exit()
+         command = "help"
       elif opt in ("-p", "--project"):
          project = arg
-         client.setProjectID(project)
       elif opt in ("-c", "--command"):
          command = arg
       elif opt in ("-v", "--vm"):
          vmname = arg
       elif opt in ("-o", "--obsess"):
          obsess = True
+   try:
+      execute(command, project, vmname, obsess)
+   except:
+      print "Unexpected error: ", sys.exc_info()[0]
+      sys.exit(1)
 
-   if command == 'listisos':
+   sys.exit(0)
+
+def execute(command, project, vmname = None, obsess = True):
+   jobid = None
+   client = Cloudio.Cloudio()
+   if project:
+      client.setProjectID(project)
+   project_arr = client.getProjectIds()
+   if command == 'help':
+      client.printHelp()
+   elif command == 'listisos':
       client.getIsos(project_arr[project])
-   if command == 'listvms':
+   elif command == 'listvms':
       client.printVirtualMachines()
    elif command == 'stopvm':
       if isinstance(vmname, str) & isinstance(project, str):
@@ -82,8 +91,10 @@ def main(argv = sys.argv[1:]):
       client.printDiskOfferings()
    elif command == 'listvolumes':
       client.printVolumes()
+   else:
+      raise "Unknown command %s".format(command)
 
-   if obsess and jobid != "None":
+   if obsess and jobid is not None:
       print "Running: ",
       client.obsessJob(jobid)
 
