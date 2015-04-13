@@ -6,8 +6,11 @@
   max_fail_percentage: 10
   tasks:
     - include: tasks/startvm.yaml
+- hosts: localhost
+  connection: local
+  tasks:
+    - pause: minutes=2
 # Pause for 2 minutes to let storage and infrastructure services come up
-- pause: minutes=2
 - hosts: "{{ project }}_SERVICES"
   connection: local
   serial: 2
