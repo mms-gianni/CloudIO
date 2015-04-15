@@ -2,7 +2,7 @@
 
 - hosts: "{{ project }}"
   connection: local
-  serial: 2
+  serial: 1
   max_fail_percentage: 10
   tasks:
     - include: tasks/startvm.yaml
@@ -13,7 +13,7 @@
 # Pause for 2 minutes to let storage and infrastructure services come up
 - hosts: "{{ project }}_SERVICES"
   connection: local
-  serial: 2
+  serial: 1
   max_fail_percentage: 10
   tasks:
     - include: tasks/startvm.yaml

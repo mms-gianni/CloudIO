@@ -1,13 +1,13 @@
 ---
 - hosts: "{{ project }}_SERVICES"
   connection: local
-  serial: 2
+  serial: 1
   max_fail_percentage: 0
   tasks:
     - include: tasks/stopvm.yaml
 - hosts: "{{ project }}"
   connection: local
-  serial: 2
+  serial: 1
   max_fail_percentage: 0
   tasks:
     - include: tasks/stopvm.yaml
