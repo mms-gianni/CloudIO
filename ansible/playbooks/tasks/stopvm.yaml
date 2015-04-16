@@ -1,2 +1,0 @@
-- name: "Shutdown this machine"
-  local_action: command cloudiosays --obsess -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"

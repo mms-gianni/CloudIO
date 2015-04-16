@@ -1,15 +1,8 @@
 ---
 
 - hosts: "{{ project }}"
-  max_fail_percentage: 10
-  tasks:
-    - include: tasks/startvm.yaml
-- hosts: localhost
   connection: local
+  # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
-    - pause: minutes=2
-# Pause for 2 minutes to let storage and infrastructure services come up
-- hosts: "{{ project }}_SERVICES"
-  max_fail_percentage: 10
-  tasks:
-    - include: tasks/startvm.yaml
+    - name: "Start this machine"
+      local_action: command cloudiosays --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"

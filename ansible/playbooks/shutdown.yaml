@@ -1,11 +1,7 @@
 ---
-- hosts: "{{ project }}_SERVICES"
-  serial: 1
-  max_fail_percentage: 0
-  tasks:
-    - include: tasks/stopvm.yaml
 - hosts: "{{ project }}"
-  serial: 1
-  max_fail_percentage: 0
+  connection: local
+  # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
-    - include: tasks/stopvm.yaml
+    - name: "Shutdown this machine"
+      local_action: command cloudiosays --obsess -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
