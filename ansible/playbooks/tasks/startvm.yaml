@@ -1,2 +1,3 @@
 - name: "Start this machine"
-  local_action: command cloudiosays --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
+  command: cloudiosays --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
+  delegate_to: 127.0.0.1
