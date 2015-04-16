@@ -5,6 +5,7 @@ import getopt
 import Cloudio
 import configparser
 import collections
+import traceback
 
 def inventory():
    """entry point that converts the list of all VMS to an ansible inventory."""
@@ -45,7 +46,8 @@ def main(argv = sys.argv[1:]):
    try:
       execute(command, project, vmname, obsess)
    except:
-      print "Unexpected error: ", sys.exc_info()[0]
+      print >> sys.stderr, "Failed to execute '%s' in project %s for virtual machine %s" % (command, project, vmname)
+      print >> sys.stderr, traceback.format_exc()
       sys.exit(1)
 
    sys.exit(0)
