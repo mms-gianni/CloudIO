@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ project }}"
+- hosts: "{{ project }}:{{ project }}_SERVICES"
   connection: local
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
