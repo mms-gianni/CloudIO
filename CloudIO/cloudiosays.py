@@ -29,7 +29,7 @@ def main(argv = sys.argv[1:]):
    debug = False
 
    try:
-      opts, args = getopt.getopt(argv,"hopd:c:v:",["project=","command=", "vm=", "help", "obsess"])
+      opts, args = getopt.getopt(argv,"hodp:c:v:",["project=","command=", "vm=", "help", "obsess", "debug"])
    except getopt.GetoptError:
       print sys.argv[0] + ' -p <project> -c <command>'
       sys.exit(2)

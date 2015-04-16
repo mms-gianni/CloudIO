@@ -1,3 +1,2 @@
 - name: "Shutdown this machine"
-  command: cloudiosays --obsess -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
-  delegate_to: 127.0.0.1
+  local_action: command cloudiosays --obsess -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
