@@ -26,9 +26,10 @@ def main(argv = sys.argv[1:]):
    project = None
    command = None
    obsess = False
+   debug = False
 
    try:
-      opts, args = getopt.getopt(argv,"hop:c:v:",["project=","command=", "vm=", "help", "obsess"])
+      opts, args = getopt.getopt(argv,"hopd:c:v:",["project=","command=", "vm=", "help", "obsess"])
    except getopt.GetoptError:
       print sys.argv[0] + ' -p <project> -c <command>'
       sys.exit(2)
@@ -43,11 +44,13 @@ def main(argv = sys.argv[1:]):
          vmname = arg
       elif opt in ("-o", "--obsess"):
          obsess = True
+      elif opt in ("-d", "--debug"):
+         debug = True
    try:
       execute(command, project, vmname, obsess)
    except:
       print >> sys.stderr, "Failed to execute '%s' in project %s for virtual machine %s" % (command, project, vmname)
-      print >> sys.stderr, traceback.format_exc()
+      if debug: print >> sys.stderr, traceback.format_exc()
       sys.exit(1)
 
    sys.exit(0)
