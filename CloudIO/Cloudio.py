@@ -74,7 +74,8 @@ class Cloudio(CloudStackClient):
       for item in res['listprojectsresponse']['project']:
         projects[item['name']] = item['id']
 
-    pickle.dump(projects, open(project_filename, 'wb'))
+      pickle.dump(projects, open(project_filename, 'wb'))
+
     return projects
 
   def printHelp(self):
