@@ -5,4 +5,4 @@
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
     - name: "Start this machine"
-      local_action: command cloudiosays --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
+      local_action: command cloudiosays -d --obsess -c startvm -p "{{ project }}" -v "{{ inventory_hostname_short }}"
