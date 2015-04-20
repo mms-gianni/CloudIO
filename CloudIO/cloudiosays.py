@@ -27,9 +27,10 @@ def main(argv = sys.argv[1:]):
    command = None
    obsess = False
    debug = False
+   log_http_requests = False
 
    try:
-      opts, args = getopt.getopt(argv,"hodp:c:v:",["project=","command=", "vm=", "help", "obsess", "debug"])
+      opts, args = getopt.getopt(argv,"hodp:c:v:",["project=","command=", "vm=", "help", "obsess", "debug", "log-http-requests"])
    except getopt.GetoptError:
       print sys.argv[0] + ' -p <project> -c <command>'
       sys.exit(2)
@@ -46,8 +47,10 @@ def main(argv = sys.argv[1:]):
          obsess = True
       elif opt in ("-d", "--debug"):
          debug = True
+      elif opt in ("--log-http-requests"):
+         log_http_requests = True
    try:
-      execute(command, project, vmname, obsess)
+      execute(command, project, vmname, obsess, log_http_requests)
    except:
       print >> sys.stderr, "Failed to execute '%s' in project %s for virtual machine %s" % (command, project, vmname)
       if debug: print >> sys.stderr, traceback.format_exc()
@@ -55,11 +58,13 @@ def main(argv = sys.argv[1:]):
 
    sys.exit(0)
 
-def execute(command, project, vmname = None, obsess = True):
+def execute(command, project, vmname = None, obsess = True, log_http_requests = False):
    jobid = None
    client = Cloudio.Cloudio()
    if project:
       client.setProjectID(project)
+   if log_http_requests:
+      client.enableHttpRequestLogging()
    project_arr = client.getProjectIds()
    if command == 'help':
       client.printHelp()

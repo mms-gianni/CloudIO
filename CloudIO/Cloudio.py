@@ -1,6 +1,12 @@
 from CloudIO.Client import CloudStackClient
 
-import sys, getopt, re, os, pickle, time
+import sys
+import urllib2
+import logging
+import os
+import pickle
+import time
+
 class Cloudio(CloudStackClient):
 
   colors = {
@@ -80,12 +86,14 @@ class Cloudio(CloudStackClient):
 
   def printHelp(self):
     print """
-    cloudiosays  -p <project> -c <command> [-v <VM name>] [-h]
+    cloudiosays  -p <project> -c <command> [-v <VM name>] [-h] [-d] [--log-http-requests]
 
       -p|--project    Name of the project you are working in
       -c|--command    The action you want to take 
       -v|--vm         Name of the virtual machine you want to work with 
       -h|--help       This help
+      -d|--debug      Log stacktrace on exceptions
+      --log-http-requests     Logs sent/received HTTP information to standard error
 
     Available Projects
     """
@@ -107,6 +115,18 @@ class Cloudio(CloudStackClient):
 
 
     """
+
+  def enableHttpRequestLogging(self):
+    print >> sys.stderr, "Enabled excessive HTTP(s) logging"
+    hh = urllib2.HTTPHandler()
+    hsh = urllib2.HTTPSHandler()
+    hh.set_http_debuglevel(1)
+    hsh.set_http_debuglevel(1)
+    opener = urllib2.build_opener(hh, hsh)
+    logger = logging.getLogger()
+    logger.addHandler(logging.StreamHandler(sys.stderr))
+    logger.setLevel(logging.NOTSET)
+    urllib2.install_opener(opener)
 
   def obsessJob(self, jobID):
     status = "NotDone"
