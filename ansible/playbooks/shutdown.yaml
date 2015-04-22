@@ -1,0 +1,7 @@
+---
+- hosts: "{{ project }}:{{ project }}_SERVICES"
+  connection: local
+  # concurrency is controlled via ansible.cfg:forks=1!
+  tasks:
+    - name: "Shutdown this machine"
+      local_action: command cloudiosays -d --obsess -c stopvm -p "{{ project }}" -v "{{ inventory_hostname_short }}" --log-http-requests

@@ -1,0 +1,6 @@
+# This file is intentionally left blank.
+#
+# Use the inventory generator to create the COMPLETE list of all hosts in all projects:
+#
+# cloudiosays-inventory > ansible/hosts
+#
