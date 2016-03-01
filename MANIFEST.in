@@ -1,0 +1,3 @@
+include README LICENCE
+recursive-include CloudIO *.py
+prune ansible ansible.cfg
