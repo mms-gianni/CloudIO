@@ -20,6 +20,10 @@ $ virtualenv local
 $ source local/bin/activate
 $ python setup.py install
 ```
+or 
+```sh
+$ pip install git+git://github.com/mms-gianni/CloudIO.git
+```
 Yep ... thats it. 
 
 ## Initial configuration
